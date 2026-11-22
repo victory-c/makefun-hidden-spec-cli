@@ -626,7 +626,7 @@ function v4aUpdate(path: string, moveTo: string | null, chunks: VChunk[], strict
     if (moveTo !== null) needSafe(path, moveTo);
     else needSafe(path);
     const doc = readDoc(tree.must(path));
-    if (moveTo !== null && moveTo !== path) tree.free(moveTo);
+    if (moveTo !== null) tree.free(moveTo);
     let lines = doc.lines;
     let cursor = 0;
     for (const c of chunks) {
@@ -658,7 +658,7 @@ function v4aUpdate(path: string, moveTo: string | null, chunks: VChunk[], strict
     }
     doc.lines = lines;
     const out = writeDoc(doc);
-    if (moveTo !== null && moveTo !== path) {
+    if (moveTo !== null) {
       tree.set(path, null);
       tree.set(moveTo, out);
       tree.moves.push([path, moveTo]);
